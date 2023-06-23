@@ -63,7 +63,7 @@ export const SignIn = () => {
     e.preventDefault();
   
     try {
-      const response = await fetch(`http://localhost:5000/api/users/login`, {
+      const response = await fetch(`/api/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -168,7 +168,7 @@ export const SignIn = () => {
                
               </Grid>
               <Grid item>
-                <Link href="/signup" variant="body2">
+                <Link href="/signup" variant="body2"  >
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
