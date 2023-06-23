@@ -4,7 +4,7 @@
 // const client = new MongoClient(uri, {
 //   serverApi: {
 //     version: ServerApiVersion.v1,
-//     strict: true,
+//     strict: true, 
 //     deprecationErrors: true,
 //   }
 // });
@@ -25,7 +25,7 @@
 const mongoose = require('mongoose');
 
 // MongoDB connection URL from MongoDB Atlas
-const dbUrl = 'mongodb+srv://bhanuprakashn4508:4508@cluster0.z6tynxn.mongodb.net/?retryWrites=true&w=majority';
+const dbUrl = process.env.MONGO_URI;
 
 // Connect to the MongoDB database
 const connectToDatabase = async () => {
