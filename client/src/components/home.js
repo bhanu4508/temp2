@@ -10,6 +10,7 @@ export const Home = () => {
   let [notes, setNotes] = useState([]);
   
   const fetchData = async () => {
+    
     try {
 
       const userInfo = JSON.parse(localStorage.getItem("userInfo"));
@@ -21,7 +22,7 @@ export const Home = () => {
       };
 
       const response = await axios.get("/api/notes/notes", config);
-      // console.log(response.data);
+      console.log(response.data);
       setNotes(response.data);
 
       } catch (error) {
@@ -96,7 +97,7 @@ export const Home = () => {
     <>
     <Header />
       <CreateArea onAdd={addNote} />
-      {notes.map((noteItem, index) => {
+      {/* {notes.map((noteItem, index) => {
           return (
               <Note
               key={index}
@@ -106,23 +107,31 @@ export const Home = () => {
               onDelete={deleteNote}
               />
               );
-            })}
+            })} */}
+            {/* {notes.map(({ _id, title, content }, index) => (
+                <Note
+                  key={index}
+                  id={_id}
+                  title={title}
+                  content={content}
+                  onDelete={deleteNote}
+                />
+              ))} */}
+              {notes && Array.isArray(notes) && notes.map(({ _id, title, content }, index) => (
+                  <Note
+                    key={index}
+                    id={_id}
+                    title={title}
+                    content={content}
+                    onDelete={deleteNote}
+                  />
+                ))}
+
+
+      
       <Footer />
     </>
   )
 }
 
 
-
-// const data_1 = await localStorage.getItem('userInfo');
-//     console.log(data_1);
-
-//     const data = await fetch(`http://localhost:5000//api/notes/notes`, {
-//       method: "GET",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(data_1),
-//     });
-
-//     console.log(data);

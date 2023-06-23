@@ -5,7 +5,7 @@ const noteController = require('../controllers/noteController');
 
 // middle ware for authentication
 router.use(authMiddleware);  
- 
+  
 // GET /notes - Get all notes
 router.get('/notes', noteController.getAllNotes);
 
