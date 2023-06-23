@@ -5,7 +5,7 @@ const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
 require('dotenv').config();
 
-const PORT = process.env.PORT || 5000; // Port number for the server
+const PORT = process.env.PORT || 3000; // Port number for the server
 
 const connectDB = require("./config/dbConfig");
 
@@ -37,9 +37,6 @@ app.use((err, req, res, next) => {
 
 // Start the server
 
-if (process.env.NODE_ENV === "production"){
-  app.use(express.static("client/build"));
-}
 
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);

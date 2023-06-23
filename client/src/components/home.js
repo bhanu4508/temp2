@@ -20,7 +20,7 @@ export const Home = () => {
         },
       };
 
-      const response = await axios.get("http://localhost:5000/api/notes/notes", config);
+      const response = await axios.get("/api/notes/notes", config);
       // console.log(response.data);
       setNotes(response.data);
 
@@ -48,7 +48,7 @@ export const Home = () => {
         },
       };
 
-      const response = await axios.post('http://localhost:5000/api/notes/notes', {
+      const response = await axios.post('/api/notes/notes', {
         title,
         content
       },config);
@@ -75,7 +75,7 @@ export const Home = () => {
         },
       };
 
-      const response = await axios.post(`http://localhost:5000/api/notes/notes/delete`, {
+      const response = await axios.post(`/api/notes/notes/delete`, {
         id
       },config);
 
