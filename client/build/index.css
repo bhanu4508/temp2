@@ -8,7 +8,7 @@
   }
   body {
     background: #eee;
-    background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+    /* background-image: url("https://source.unsplash.com/2000x1000/?landscape"); */
     padding: 0 16px;
   }
   
@@ -102,3 +102,42 @@
     outline: none;
   }
   
+
+
+  /* Example CSS for styling the select element */
+.select-container {
+  margin-bottom: 10px;
+}
+
+.select-container label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.select-container select {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 16px;
+}
+
+/* Example CSS for styling the due date input element */
+.due-date-container {
+  margin-bottom: 10px;
+}
+
+.due-date-container label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.due-date-container input[type="date"] {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 16px;
+}

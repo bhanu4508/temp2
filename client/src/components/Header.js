@@ -7,13 +7,14 @@ import { useEffect } from "react";
 // import * as EmailValidator from 'email-validator';
 
 function Header() {
+
   const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem('userInfo');
     navigate('/');
-  };
-
+  }
+  
   const [show,setshow] = useState(false);
 
   useEffect(() => {
@@ -34,7 +35,7 @@ function Header() {
       <div className="header-center">
         <h1>
           <HighlightIcon className="highlight-icon" />
-          Keeper
+          To-Do Application
         </h1>
       </div>
       <div className="header-right">

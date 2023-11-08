@@ -9,7 +9,7 @@ async function getAllNotes(req, res) {
   } catch (error) {
     res.status(500).json({ error: 'Server error' });
   }
-}
+} 
 
 // Get a single note by ID
 async function getNoteById(req, res) {
@@ -32,17 +32,22 @@ async function getNoteById(req, res) {
     res.status(500).json({ error: 'Server error' });
   }
 } 
- 
+  
 // Create a new note
 async function createNote(req, res) {
 
-  const { title, content } = req.body;
+  console.log(req.body);
+  const { title, content,dueDate, priority } = req.body;
   
   try {
+
     const note = await Note.create({
       title,
       content,
-      user: req.user.id
+      user: req.user.id,
+      dueDate,
+      priority,
+      status: false
     });
     res.status(201).json(note);
   } catch (error) {
@@ -53,10 +58,10 @@ async function createNote(req, res) {
 
 // Update a note by ID
 async function updateNote(req, res) {
-  
+
+  const { id } = req.body;
 
   try {
-
     let note = await Note.findById(id);
 
     if (!note) {
@@ -68,19 +73,18 @@ async function updateNote(req, res) {
       return res.status(403).json({ error: 'Unauthorized' });
     }
 
-    note.title = title;
-    note.content = content;
+    // Toggle the status from true to false or false to true
+    note.status = !note.status;
 
     await note.save();
 
     res.json(note);
 
-
   } catch (error) {
     res.status(500).json({ error: 'Server error' });
   }
-
 }
+
 
 // Delete a note by ID
 async function deleteNote(req, res) {

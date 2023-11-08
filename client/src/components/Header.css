@@ -4,11 +4,21 @@
     align-items: center;
     padding: 1rem;
   }
+
+  .hand-pointer {
+    cursor: pointer;
+  }
   
   .header-center {
     display: flex;
     align-items: center;
   }
+
+  .add-button {
+    position: relative;
+    top: 10px; /* Adjust the value as needed to control the vertical alignment */
+  }
+  
   
   .highlight-icon {
     margin-right: 0.5rem;

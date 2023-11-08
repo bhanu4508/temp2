@@ -1,61 +1,82 @@
 import React, { useState } from "react";
+import { JsonForms } from "@jsonforms/react";
+import { materialRenderers, materialCells } from "@jsonforms/material-renderers";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import Zoom from "@material-ui/core/Zoom";
 
 function CreateArea(props) {
-  const [isExpanded, setExpanded] = useState(false);
+  const currentDate = new Date().toISOString().slice(0, 10); // Get the current date in "YYYY-MM-DD" format
 
-  const [note, setNote] = useState({
+  const initialNote = {
     title: "",
-    content: ""
-  });
+    content: "",
+    priority: "low",
+    dueDate: currentDate, // Set the default value to the current date
+  };
 
-  function handleChange(event) {
-    const { name, value } = event.target;
+  const [note, setNote] = useState(initialNote);
 
-    setNote(prevNote => {
-      return {
-        ...prevNote,
-        [name]: value
-      };
-    });
+  async function submitNote() {
+    console.log(note);
+    await props.onAdd(note);
+    setNote(initialNote);
   }
 
-  function submitNote(event) {
-    props.onAdd(note);
-    setNote({
-      title: "",
-      content: ""
-    });
-    event.preventDefault();
-  }
+  const jsonSchema = {
+    type: "object",
+    properties: {
+      title: { type: "string" },
+      content: { type: "string" },
+      priority: { type: "string", enum: ["low", "medium", "high"] },
+      dueDate: { type: "string", format: "date" },
+    },
+  };
 
-  function expand() {
-    setExpanded(true);
-  }
+  const uischema = {
+    type: "VerticalLayout",
+    elements: [
+      {
+        type: "Control",
+        scope: "#/properties/title",
+      },
+      {
+        type: "Control",
+        scope: "#/properties/content",
+        options: {
+          multi: true,
+        },
+      },
+      {
+        type: "Control",
+        scope: "#/properties/priority",
+        label: "Priority",
+      },
+      {
+        type: "Control",
+        scope: "#/properties/dueDate",
+        label: "Due Date",
+      },
+    ],
+  };
+
+  // Update the note state for each form field individually
+  const handleFormChange = (event) => {
+    setNote(event.data);
+  };
 
   return (
     <div>
       <form className="create-note">
-        {isExpanded && (
-          <input
-            name="title"
-            onChange={handleChange}
-            value={note.title}
-            placeholder="Title"
-          />
-        )}
-
-        <textarea
-          name="content"
-          onClick={expand}
-          onChange={handleChange}
-          value={note.content}
-          placeholder="Take a note..."
-          rows={isExpanded ? 3 : 1}
+        <JsonForms
+          data={note}
+          schema={jsonSchema}
+          uischema={uischema}
+          renderers={materialRenderers}
+          cells={materialCells}
+          onChange={handleFormChange}
         />
-        <Zoom in={isExpanded}>
+        <Zoom in={true}>
           <Fab onClick={submitNote}>
             <AddIcon />
           </Fab>

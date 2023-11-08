@@ -21,7 +21,7 @@ export const Home = () => {
         },
       };
 
-      const response = await axios.get("/api/notes/notes", config);
+      const response = await axios.get("http://localhost:5000/api/notes/notes", config);
       console.log(response.data);
       setNotes(response.data);
 
@@ -39,6 +39,8 @@ export const Home = () => {
 
     let title = newNote.title;
     let content = newNote.content;
+    let dueDate = newNote.dueDate;
+    let priority = newNote.priority;
    
     try {
       const userInfo = JSON.parse(localStorage.getItem("userInfo"));
@@ -49,9 +51,11 @@ export const Home = () => {
         },
       };
 
-      const response = await axios.post('/api/notes/notes', {
+      const response = await axios.post('http://localhost:5000/api/notes/notes', {
         title,
-        content
+        content,
+        dueDate,
+        priority
       },config);
       // console.log(response.data); 
       const newNote = response.data;
@@ -64,8 +68,6 @@ export const Home = () => {
 
   async function deleteNote(id) {
 
-    // console.log(id);
-
     try {
 
       const userInfo = JSON.parse(localStorage.getItem("userInfo"));
@@ -76,15 +78,12 @@ export const Home = () => {
         },
       };
 
-      const response = await axios.post(`/api/notes/notes/delete`, {
+      const response = await axios.post(`http://localhost:5000/api/notes/notes/delete`, {
         id
       },config);
 
       console.log(response);
       
-      // console.log(response.data); 
-      // const newNote = response.data;
-      // setNotes([...notes, newNote])
 
     } catch (error) {
       console.log(error);
@@ -93,6 +92,38 @@ export const Home = () => {
     fetchData();
 
   }
+
+
+  async function onStatusToggle(id) {
+    
+    try {
+
+      const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const response = await axios.put(`http://localhost:5000/api/notes/notes/update`, {
+        id
+      },config);
+
+      console.log(response);
+      
+
+    } catch (error) {
+      console.log(error);
+    }
+    
+    fetchData();
+
+  }
+
+
+
+
   return (
     <>
     <Header />
@@ -117,13 +148,17 @@ export const Home = () => {
                   onDelete={deleteNote}
                 />
               ))} */}
-              {notes && Array.isArray(notes) && notes.map(({ _id, title, content }, index) => (
+              {notes && Array.isArray(notes) && notes.map(({ _id, title, content,dueDate, priority,status }, index) => (
                   <Note
                     key={index}
                     id={_id}
                     title={title}
                     content={content}
+                    dueDate={dueDate}
+                    priority={priority}
+                    status={status}
                     onDelete={deleteNote}
+                    onStatusToggle={onStatusToggle}
                   />
                 ))}
 

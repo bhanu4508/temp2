@@ -62,9 +62,6 @@ module.exports.signup = async (req, res, next) => {
       res.status(201).json({
         status: true,
         data: {
-          // _id: user._id,
-          // username: user.username,
-          // email: user.email,
           token: generateToken(user._id),
         },
       });

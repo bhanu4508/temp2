@@ -19,6 +19,8 @@ import {useNavigate} from 'react-router-dom';
 import {ErrorStack} from "./ErrorStack";
 import Header from "./Header";
 
+import './Header.css';
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -27,7 +29,7 @@ function Copyright(props) {
         Keeper
       </Link>{' '}
       {new Date().getFullYear()}
-      {'.'}
+      {'. Bhanu'}
     </Typography>
   );
 }
@@ -77,7 +79,7 @@ export const SignUp = () => {
 
       
 
-      const response = await fetch(`/api/users/signup`, {
+      const response = await fetch(`http://localhost:5000/api/users/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -132,8 +134,16 @@ export const SignUp = () => {
       setmess(true);
       seterrmes("An error occurred");
     }
+
+    
     
 }
+
+    const navigate_to = (event)=>{
+      event.preventDefault();
+      navigate('/')
+
+    }
 
   return (
     <div>
@@ -208,8 +218,8 @@ export const SignUp = () => {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/" variant="body2">
-                  Already have an account? Sign in
+                <Link className="hand-pointer" onClick={navigate_to} variant="body2"  >
+                  {"Already have account! Sign In"}
                 </Link>
               </Grid>
             </Grid>

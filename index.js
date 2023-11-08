@@ -16,7 +16,6 @@ connectDB();
 require('dotenv').config();
 
 
-  
 // // Routes
 const noteRoutes = require('./routes/noteRoute');
 const userRoutes = require('./routes/userRoute');
